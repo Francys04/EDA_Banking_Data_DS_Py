@@ -1,19 +1,27 @@
-import numpy as np
-import pandas as pd
+import numpy as np  # NumPy is used for numerical and mathematical operations.
+import pandas as pd  # This library is used for data manipulation and analysis.
 from src.config import prev_app
-import seaborn as sns
-import matplotlib.pyplot as plt
+import seaborn as sns  # Seaborn is a data visualization library.
+import matplotlib.pyplot as plt  # This is a widely-used plotting library.
 from src.processing import app_score_col_rmvd
 
+"""This line calculates the percentage of missing values for each column in the DataFrame prev_app, sorts the 
+results in descending order, and stores them in a new DataFrame called null_count. The reset_index() 
+function is used to reset the index of the resulting DataFrame, and column names are renamed to 'var' and 'count_pct'.
+"""
 null_count = pd.DataFrame(prev_app.isnull().sum().sort_values(ascending=False) / prev_app.shape[0] * 100). \
     reset_index().rename(columns={'index': 'var', 0: 'count_pct'})
 # print(null_count)
+
 
 var_msng_ge_40 = list(null_count[null_count['count_pct'] >= 40]['var'])
 # print(var_msng_ge_40)
 # ['RATE_INTEREST_PRIVILEGED', 'RATE_INTEREST_PRIMARY', 'AMT_DOWN_PAYMENT', 'RATE_DOWN_PAYMENT', 'NAME_TYPE_SUITE',
 # 'NFLAG_INSURED_ON_APPROVAL', 'DAYS_TERMINATION', 'DAYS_LAST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 'DAYS_FIRST_DUE',
 # 'DAYS_FIRST_DRAWING']
+
+"""This line extracts the column names (variables) with missing value percentages greater than or equal to 40% 
+from the null_count DataFrame and stores them in the list var_msng_ge_40."""
 
 nva_cols = var_msng_ge_40 + ['RATE_INTEREST_PRIVILEGED', 'RATE_INTEREST_PRIMARY', 'AMT_DOWN_PAYMENT',
                              'RATE_DOWN_PAYMENT', 'NAME_TYPE_SUITE', 'NFLAG_INSURED_ON_APPROVAL', 'DAYS_TERMINATION',
@@ -23,6 +31,8 @@ print(len(nva_cols))
 print(len(prev_app.columns))
 
 '''Analysing the dataframe'''
+"""This line creates a new list nva_cols by combining var_msng_ge_40 with additional column names. 
+This list likely contains columns with a high percentage of missing values as well as some specific columns."""
 prev_app_nva_col_rmvd = prev_app.drop(labels=nva_cols, axis=1)
 print(len(prev_app_nva_col_rmvd))
 
@@ -91,5 +101,3 @@ col_rmwd = prev_app_nva_col_rmvd.drop(labels=['AMT_GOODS_PRICE_MODE', 'AMT_GOODS
 # finding the missing values
 print(prev_app_nva_col_rmvd.isnull().sum().sort_values(ascending=False))
 print(len(prev_app_nva_col_rmvd.columns))
-
-

@@ -1,9 +1,15 @@
-import pandas as pd
-import numpy as np
-from src.feature_engineering import app_score_col_rmvd
+import pandas as pd  # This library is used for data manipulation and analysis.
+import numpy as np  # NumPy is used for numerical and mathematical operations.
+from src.feature_engineering import app_score_col_rmvd  # Seaborn is a data visualization library that
+# works well with Pandas data structures.
 import seaborn as sns
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # This is a widely-used plotting library.
 
+
+"""This code initializes an empty list called day_col. Then, it loops through the columns of the DataFrame 
+app_score_col_rmvd. For each column name (col), it checks if the column name starts with "DAYS". If it does, 
+the column name is appended to the day_col list, and the current contents of day_col are printed. 
+This loop will print the day_col list at each iteration, which is likely not the intended behavior."""
 day_col = []
 for col in app_score_col_rmvd.columns:
     if col.startswith("DAYS"):
@@ -17,6 +23,8 @@ for col in day_col:
 print(len(app_score_col_rmvd.columns))  # 62 columns
 
 '''Outlier detection and treatment'''
+"""This line calculates and prints the minimum, maximum, and median values for the 'AMT_GOODS_PRICE' column in the
+ DataFrame app_score_col_rmvd. It uses the .agg() method to perform these aggregation operations."""
 print(app_score_col_rmvd['AMT_GOODS_PRICE'].agg(['min', 'max', 'median']))
 
 # show in a graph data representation

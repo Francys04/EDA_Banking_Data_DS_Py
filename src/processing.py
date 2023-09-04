@@ -1,9 +1,11 @@
-import pandas
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from src.config import app, prev_app
-from openpyxl.workbook import Workbook
+import pandas  # Used for data manipulation and analysis.
+import numpy as np  # Used for numerical and mathematical operations.
+import matplotlib.pyplot as plt  # A library for creating visualizations.
+import seaborn as sns  # A data visualization library.
+from src.config import app, prev_app  # src.config imports data from the app and prev_app variables,
+# presumably containing DataFrames
+from openpyxl.workbook import Workbook  # openpyxl.workbook imports the Workbook class from the
+# openpyxl library, likely for exporting data to Excel.
 
 
 '''data import and basic exploration'''
